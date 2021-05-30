@@ -14,5 +14,3 @@ app
   .mount('#app')
 
 app.component('app-loader', AppLoader)
-
-

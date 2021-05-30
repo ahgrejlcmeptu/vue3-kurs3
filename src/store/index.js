@@ -1,7 +1,7 @@
 import {createStore} from 'vuex';
-import {useRoute} from 'vue-router'
-let url = 'https://vue3-kurs3-default-rtdb.firebaseio.com';
-// task.json
+import {useRoute} from 'vue-router';
+import { URL } from '../config'
+
 export const store = createStore({
   state() {
     return {
@@ -30,7 +30,7 @@ export const store = createStore({
   },
   actions: {
     async addTask({commit}, payload) {
-      const response = await fetch(`${url}/task.json`, {
+      const response = await fetch(`${URL}/task.json`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ export const store = createStore({
       commit('addTask', payload)
     },
     async changeStatus({commit}, payload) {
-      const response = await fetch(`${url}/task/${payload.id}.json`, {
+      const response = await fetch(`${URL}/task/${payload.id}.json`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
@@ -58,7 +58,7 @@ export const store = createStore({
       commit('changeStatus', payload)
     },
     async removeTasks({commit}, payload) {
-      const response = await fetch(`${url}/task/${payload}.json`, {
+      const response = await fetch(`${URL}/task/${payload}.json`, {
         method: 'DELETE',
       })
 
@@ -67,11 +67,10 @@ export const store = createStore({
     async loadTask ({commit}) {
       let task = []
       try {
-        const response = await fetch(`${url}/task.json`, {
+        const response = await fetch(`${URL}/task.json`, {
           method: 'GET',
         })
         let result = await response.json()
-        console.log(result)
         if (result) {
           task = Object.keys(result).map(key => {
             return {
